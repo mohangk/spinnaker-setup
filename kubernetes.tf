@@ -1,10 +1,10 @@
-resource "google_container_cluster" "daebak-cluster" {
+resource "google_container_cluster" "spinnaker-cluster" {
   provider = google-beta
-  name               = "daebak-cluster"
-  location           = "asia-northeast3"
+  name               = "spinnaker-cluster"
+  location           = "us-central1"
   initial_node_count = 1
   network    = google_compute_network.test-network.id
-  subnetwork = google_compute_subnetwork.asia-northeast3-gke-primary-subnet.id
+  subnetwork = google_compute_subnetwork.us-central1-gke-primary-subnet.id
   min_master_version = "1.16.13-gke.401"
   ip_allocation_policy {
     cluster_secondary_range_name  = "gke-cluster"
@@ -20,16 +20,16 @@ resource "google_container_cluster" "daebak-cluster" {
   }
   master_authorized_networks_config {
     cidr_blocks {
-      cidr_block = google_compute_subnetwork.asia-northeast3-gke-primary-subnet.ip_cidr_range
-      display_name = google_compute_subnetwork.asia-northeast3-gke-primary-subnet.name
+      cidr_block = google_compute_subnetwork.us-central1-gke-primary-subnet.ip_cidr_range
+      display_name = google_compute_subnetwork.us-central1-gke-primary-subnet.name
     }
     cidr_blocks {
-      cidr_block = "HOMEIP/32"
-      display_name = "another"
+      cidr_block = "27.104.184.54/32"
+      display_name = "mohans-network"
     }
   }
   node_config {
-    machine_type = "n1-standard-2"
+    machine_type = "e2-standard-2"
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
