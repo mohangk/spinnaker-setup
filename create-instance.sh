@@ -2,12 +2,18 @@
 
 # Instance used to create a pg images
 
-NAME=${1:-pg-img}
-REGION=${2:-us-central1}
+NAME=$1
+ZONE=$2
+
+if [[ $# -ne 2 ]]; then
+    echo "$0 [instance name] [zone]"
+    exit 2
+fi
+
 
 gcloud compute  instances create $NAME \
 	--no-address \
-	--zone=$REGION-a \
+	--zone=$ZONE \
 	--machine-type=e2-standard-2 \
 	--image-family=debian-10 \
 	--image-project=debian-cloud \
