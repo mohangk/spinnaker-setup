@@ -1,6 +1,12 @@
+resource "google_project_service" "project" {
+  project = var.project
+  service = "container.googleapis.com"
+}
+  
 resource "google_container_cluster" "spinnaker-cluster" {
   provider = google-beta
   name               = "spinnaker-cluster"
+  project 	     = var.project
   location           = "us-central1"
   initial_node_count = 1
   network    = google_compute_network.test-network.id

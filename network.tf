@@ -1,10 +1,12 @@
 resource "google_compute_network" "test-network" {
   name                    = "test-network"
   auto_create_subnetworks = false
+  project = var.project
 }
 
 resource "google_compute_subnetwork" "us-central1-gke-primary-subnet" {
   name          = "gke-subnet"
+  project = var.project
   region        = "us-central1"
   network       = google_compute_network.test-network.id
   ip_cidr_range = "192.168.85.0/24"
